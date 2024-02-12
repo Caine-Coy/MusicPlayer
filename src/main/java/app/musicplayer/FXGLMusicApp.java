@@ -35,7 +35,7 @@ import static app.musicplayer.Config.*;
 // TODO: if song is removed from folder
 // TODO: global controls e.g. spacebar to pause/resume
 // TODO: allow playlist song reorder
-// TODO: loop 1, loop all
+// TODO: loop 1, loop all Working On
 // TODO: delete playlist while song is playing
 // TODO: shuffle only works on the playlist currently playing, not on selected
 public class FXGLMusicApp extends Application {

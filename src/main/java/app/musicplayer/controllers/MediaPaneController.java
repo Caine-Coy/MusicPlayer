@@ -78,6 +78,8 @@ public final class MediaPaneController implements Initializable {
 
     private BooleanProperty isPlaying = new SimpleBooleanProperty(false);
     private BooleanProperty isShuffleOn = new SimpleBooleanProperty(false);
+    private BooleanProperty isLoop1On = new SimpleBooleanProperty(false);
+    private BooleanProperty isLoopAllOn = new SimpleBooleanProperty(false);
 
     private MediaPlayer mediaPlayer = null;
     private Playlist playlist = null;
@@ -241,8 +243,8 @@ public final class MediaPaneController implements Initializable {
 
     private void setNextSong() {
         // TODO: set via UI buttons
-        boolean isLoop1On = false;
-        boolean isLoopAllOn = false;
+        boolean isLoop1On = this.isLoop1On.get();
+        boolean isLoopAllOn = this.isLoopAllOn.get();
 
         if (isLoop1On) {
             setSong(playlist, song);
@@ -254,7 +256,6 @@ public final class MediaPaneController implements Initializable {
             setSong(playlist, playlist.getSongs().get(0));
             return;
         }
-
         // we know there are still songs in the playlist, then play the next
         setSong(playlist, playlist.getSongs().get(currentSongIndex + 1));
     }
@@ -306,10 +307,24 @@ public final class MediaPaneController implements Initializable {
 
     @FXML
     private void toggleLoop() {
-        if (!isReady)
-            return;
+        if (!isReady) return;
+        //Toggling a Simple Boolean is strange
+        
+        //TODO Make a nicer state machine.
 
-        System.out.println("TODO: toggle loop");
+        if (!isLoop1On.get() && !isLoopAllOn.get()){
+            isLoop1On.set(true);
+            System.out.println("Loop 1");
+        }
+        else if(isLoop1On.get()){
+            isLoop1On.set(false);
+            isLoopAllOn.set(true);
+           System.out.println("Loop all"); 
+        }
+        else {
+            isLoop1On.set(false);
+            isLoopAllOn.set(false);
+        }
     }
 
     @FXML
